@@ -1,0 +1,690 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #242424;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #f9f9f9;
+  }
+}
+
+@layer base {
+  :root {
+    /* N64-inspired greyish light theme */
+    --background: 220 12% 90%;
+    --foreground: 220 15% 15%;
+    --card: 220 15% 94%;
+    --card-foreground: 220 15% 15%;
+    --popover: 220 15% 94%;
+    --popover-foreground: 220 15% 15%;
+    --primary: 220 15% 25%;
+    --primary-foreground: 220 10% 98%;
+    --secondary: 220 12% 82%;
+    --secondary-foreground: 220 15% 25%;
+    --muted: 220 12% 85%;
+    --muted-foreground: 220 10% 45%;
+    --accent: 220 12% 82%;
+    --accent-foreground: 220 15% 25%;
+    --destructive: 0 75% 60%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 220 12% 75%;
+    --input: 220 12% 75%;
+    --ring: 220 15% 30%;
+    --chart-1: 220 35% 60%;
+    --chart-2: 200 40% 55%;
+    --chart-3: 240 30% 50%;
+    --chart-4: 180 35% 55%;
+    --chart-5: 210 40% 60%;
+    --radius: 0.5rem;
+    --sidebar: 220 12% 80%;
+  }
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+    --sidebar: 224 71% 4%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Hide scrollbar but keep functionality */
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;  /* Chrome, Safari, Opera */
+}
+
+/* Mobile/Touch Optimizations */
+@media (max-width: 768px) {
+  .touch-manipulation {
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+  
+  /* Increase tap target sizes on mobile */
+  button, a, .clickable, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+  
+  /* Improve spacing for mobile */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  input, select, textarea {
+    font-size: 16px !important; /* Prevent iOS zoom on focus */
+  }
+}
+
+/* Hide the scrollbar but maintain scrollability */
+.custom-scroll-container::-webkit-scrollbar {
+  width: 0;
+  background: transparent;
+  display: none;
+}
+
+.custom-scroll-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+/* Gradient fade indicators for scroll areas */
+.scroll-hint-bottom {
+  position: relative;
+}
+
+.scroll-hint-bottom::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  right: 0;
+  height: 20px;
+  background: linear-gradient(to top, hsl(var(--background) / 0.5), transparent);
+  pointer-events: none;
+}
+
+/* Glow animation for the logo */
+.animate-glow {
+  animation: glow 3s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 0px hsl(var(--primary) / 0.1);
+  }
+  to {
+    text-shadow: 0 0 5px hsl(var(--primary) / 0.5);
+  }
+}
+
+/* Gradient backgrounds for the sidebar */
+.bg-sidebar {
+  background-color: hsl(var(--sidebar));
+  background-image: 
+    radial-gradient(
+      circle at 100% 100%,
+      hsl(var(--sidebar) / 0.8) 0%,
+      hsl(var(--sidebar) / 1) 50%
+    );
+}
+
+/* Sidebar animation */
+.sidebar-animation {
+  opacity: 0;
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Sidebar card hover effect */
+.sidebar-card {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Sidebar item hover effect */
+.sidebar-item {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-item:hover {
+  transform: translateX(2px);
+}
+
+/* Sidebar icon container animation */
+.sidebar-icon-container {
+  transition: all 0.2s ease-in-out;
+}
+
+.sidebar-icon-container:hover {
+  transform: scale(1.1);
+}
+
+/* Sidebar item icon pulse */
+.sidebar-item-icon {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 0.6;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0.6;
+  }
+}
+
+/* Nav item hover animation */
+.nav-item {
+  overflow: hidden;
+}
+
+.nav-item-bg {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.nav-item:hover .nav-item-bg {
+  opacity: 1;
+}
+
+/* Sidebar toggle button animation */
+.sidebar-toggle-button {
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-toggle-button::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: hsl(var(--accent) / 0.5);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+.sidebar-toggle-button:hover::after {
+  width: 100px;
+  height: 100px;
+}
+
+/* Avatar hover animations */
+.sidebar-avatars .h-8 {
+  transition: transform 0.2s ease, z-index 0.2s ease;
+}
+
+/* Header navigation animations */
+@media (min-width: 768px) {
+  header nav button {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  header nav button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: hsl(var(--primary));
+    transition: width 0.3s ease, left 0.3s ease;
+  }
+  
+  header nav button:hover::after {
+    width: 80%;
+    left: 10%;
+  }
+}
+
+/* Fade in animation for expanding panels */
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out forwards;
+}
+
+/* Scroll Button Animations */
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-25%);
+  }
+}
+
+/* Scroll Focus Effect */
+.scroll-focus {
+  position: relative;
+}
+
+.scroll-focus::before {
+  content: '';
+  position: absolute;
+  left: -5px;
+  top: 0;
+  height: 100%;
+  width: 3px;
+  background: hsl(var(--primary));
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-focus:hover::before {
+  opacity: 1;
+}
+
+/* Visual scroll helpers */
+.scroll-indicator {
+  position: relative;
+}
+
+.scroll-indicator::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 30%;
+  height: 2px;
+  background: hsl(var(--accent));
+  opacity: 0.5;
+}
+
+/* Additional animations */
+.pulse-bg {
+  animation: pulseBg 3s infinite;
+}
+
+@keyframes pulseBg {
+  0% {
+    background-color: hsl(var(--accent) / 0.1);
+  }
+  50% {
+    background-color: hsl(var(--accent) / 0.2);
+  }
+  100% {
+    background-color: hsl(var(--accent) / 0.1);
+  }
+}
+
+/* Hover effects */
+.hover-lift {
+  transition: transform 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+}
+
+/* Status indicators */
+.status-indicator {
+  position: relative;
+}
+
+.status-indicator::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: currentColor;
+  border: 2px solid hsl(var(--background));
+}
+
+/* Tab animations */
+.tab-slide-indicator {
+  transition: transform 0.2s ease, width 0.2s ease;
+}
+
+/* Card effects */
+.card-gradient {
+  background-image: linear-gradient(
+    to bottom right,
+    hsl(var(--card) / 1),
+    hsl(var(--card) / 0.9)
+  );
+}
+
+/* Shimmer loading effect */
+.shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.shimmer::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    hsl(var(--accent) / 0.2),
+    transparent
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  100% {
+    left: 100%;
+  }
+}
+
+/* Compact sidebar content styles */
+.compact-sidebar-content h3 {
+  font-size: 0.75rem;
+  line-height: 1rem;
+}
+
+.compact-sidebar-content p {
+  font-size: 0.7rem;
+  line-height: 1rem;
+}
+
+.compact-sidebar-content .text-xs {
+  font-size: 0.7rem;
+  line-height: 1rem;
+}
+
+.compact-sidebar-content .text-sm {
+  font-size: 0.8rem;
+  line-height: 1.2rem; 
+}
+
+/* Responsive font sizes for different screen widths */
+@media (max-width: 1280px) {
+  .compact-sidebar-content {
+    font-size: 0.7rem;
+  }
+  
+  .compact-sidebar-content h3 {
+    font-size: 0.7rem;
+  }
+  
+  .compact-sidebar-content .text-xs {
+    font-size: 0.65rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .compact-sidebar-content {
+    font-size: 0.65rem;
+  }
+  
+  .compact-sidebar-content h3 {
+    font-size: 0.65rem;
+  }
+  
+  .compact-sidebar-content .text-xs {
+    font-size: 0.6rem;
+  }
+}
+
+/* Truncate long text in compact mode */
+.compact-sidebar-content .truncate-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+/* Adjust spacing for compact sidebar */
+.compact-sidebar-content .mb-4 {
+  margin-bottom: 0.5rem;
+}
+
+.compact-sidebar-content .p-3 {
+  padding: 0.5rem;
+}
+
+.compact-sidebar-content .space-y-4 {
+  margin-top: 0.5rem;
+}
+
+/* Mobile touch improvements */
+@media (hover: none) {
+  /* Increase space between tap targets */
+  .touch-spacing > * + * {
+    margin-top: 0.5rem;
+  }
+  
+  /* Improve active state visibility */
+  .touch-feedback:active {
+    background-color: hsl(var(--accent) / 0.3);
+    transform: scale(0.98);
+  }
+  
+  /* Make buttons more tappable */
+  button, 
+  .button,
+  [role="button"],
+  a,
+  input[type="submit"],
+  input[type="button"],
+  input[type="reset"] {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+/* Mobile-specific shadows for better depth perception */
+@media (max-width: 768px) {
+  .mobile-elevated {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+  }
+  
+  /* Prevent text selection on interactive elements */
+  button, a, [role="button"], input, select, .clickable {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+}
+
+/* Subcategory menu styling */
+.nav-item-container {
+  position: relative;
+  z-index: 40; /* Higher than other elements but lower than dropdowns */
+}
+
+.subcategory-menu {
+  position: absolute;
+  top: calc(100% + 2px); /* Position right below the parent with a small gap */
+  left: 0;
+  min-width: 220px; /* Wider to fit content */
+  z-index: 50; /* Higher than nav-item-container */
+  background-color: hsl(var(--popover));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 0.5rem;
+  display: block;
+  visibility: visible;
+  opacity: 1;
+  transform: translateY(0);
+  animation: submenuFadeIn 0.15s ease-out;
+  pointer-events: auto;
+}
+
+@keyframes submenuFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    visibility: visible;
+  }
+}
+
+.subcategory-menu button {
+  display: flex;
+  align-items: center;
+  font-size: 0.875rem;
+  margin: 0.25rem 0;
+  border-radius: var(--radius);
+  width: 100%;
+  text-align: left;
+  padding: 0.5rem 0.625rem;
+  transition: background-color 0.15s, color 0.15s;
+  height: auto;
+}
+
+.subcategory-menu button:hover {
+  background-color: hsl(var(--accent));
+  color: hsl(var(--accent-foreground));
+}
+
+.subcategory-menu button:active {
+  transform: scale(0.98);
+}
+
+/* Make sure our container is set up for proper positioning */
+.container {
+  position: relative;
+  overflow: visible !important; /* Ensure submenus aren't clipped */
+}
+
+/* Ensure nav has proper z-index */
+header nav {
+  position: relative;
+  z-index: 30;
+  overflow: visible !important; /* Ensure submenus aren't clipped */
+}
+
+/* Fix for any parent elements that might clip the submenu */
+header, header > div, header > div > div, nav {
+  overflow: visible !important;
+}
+
+/* Ensure header menus appear above other content */
+header {
+  z-index: 100;
+}
