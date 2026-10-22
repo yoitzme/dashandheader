@@ -5,41 +5,28 @@ import {
   ChevronRight,
   CircleDot,
   Calendar,
-  Home,
-  Shield,
   BookOpen,
   Clock,
   MapPin,
-  Battery,
-  Car,
   Phone,
   CheckCircle,
-  AlertTriangle,
-  Wifi,
   Heart,
   Sun,
   Moon,
   ChevronDown,
   ChevronUp,
-  Filter,
   SlidersHorizontal,
-  ArrowUpDown,
-  Check,
   X,
   RefreshCw,
   FileText,
   MessageSquare,
-  Package,
   ShoppingCart,
   Camera,
   Bell,
-  Zap,
   Award,
   User
 } from 'lucide-react';
 import { useEffect, useState, useRef } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Progress } from '@/components/ui/progress';
 import { format, isToday, isYesterday, subDays, formatDistanceToNow } from 'date-fns';
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip';
 import { Badge } from '@/components/ui/badge';
@@ -48,7 +35,6 @@ import {
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuGroup, 
-  DropdownMenuItem, 
   DropdownMenuLabel, 
   DropdownMenuSeparator, 
   DropdownMenuTrigger 
@@ -137,14 +123,14 @@ export function Sidebar({
   onToggle,
 }: SidebarProps) {
   const [collapsed, setCollapsed] = useState(false);
-  const [currentTime, setCurrentTime] = useState(format(new Date(), 'h:mm a'));
+  const [, setCurrentTime] = useState(format(new Date(), 'h:mm a'));
   const [selectedMember, setSelectedMember] = useState<string | null>(null);
   const [showMemberDetails, setShowMemberDetails] = useState(false);
   const [activeSection, setActiveSection] = useState<string>('status');
   const [activityViewMode, setActivityViewMode] = useState<'all' | 'grouped'>('all');
   const [activityFilterUser, setActivityFilterUser] = useState<string | 'all'>('all');
   const [activitySortOrder, setActivitySortOrder] = useState<'newest' | 'oldest'>('newest');
-  const [activityFilterType, setActivityFilterType] = useState<ActivityType | 'all'>('all');
+  const [, setActivityFilterType] = useState<ActivityType | 'all'>('all');
   const [activityTypeFilters, setActivityTypeFilters] = useState<{
     [key in ActivityType]: boolean;
   }>({
@@ -164,7 +150,7 @@ export function Sidebar({
   
   // Scroll state
   const contentRef = useRef<HTMLDivElement>(null);
-  const [scrollPosition, setScrollPosition] = useState(0);
+  const [, setScrollPosition] = useState(0);
   const [canScrollUp, setCanScrollUp] = useState(false);
   const [canScrollDown, setCanScrollDown] = useState(false);
   
@@ -367,10 +353,6 @@ export function Sidebar({
   const generateActivityLog = (): ActivityLogEntry[] => {
     const now = new Date();
     
-    const activityTypes: ActivityType[] = [
-      'task', 'event', 'message', 'location', 'status', 
-      'shopping', 'health', 'photo', 'achievement'
-    ];
     
     const baseActivities: Partial<ActivityLogEntry>[] = [
       {
