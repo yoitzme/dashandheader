@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { Award, Bell, Calendar, CalendarCheck, ChevronDown, CheckSquare, CloudSun, Flag, Home, Menu, MessageSquareMore, Wallet, Search, Settings, ShoppingCart, Sun, Target, Thermometer, User, X, Clock, AlertCircle, FileText, Briefcase, GraduationCap, Plane, Users, UsersRound, Landmark, HardHat, Compass, Utensils, ClipboardList, Package, CreditCard, TimerOff, Timer, BarChart2, Trophy, Repeat, DollarSign, PiggyBank, LineChart, BookOpen, Cake, PartyPopper, Gift } from 'lucide-react';
+import { Award, Bell, Calendar, CalendarCheck, ChevronDown, CheckSquare, CloudSun, Flag, Home, Menu, MessageSquareMore, Wallet, Search, Settings, ShoppingCart, Target, Thermometer, User, X, Clock, AlertCircle, Briefcase, GraduationCap, Plane, Users, UsersRound, Landmark, HardHat, Compass, Utensils, ClipboardList, Package, CreditCard, TimerOff, Timer, BarChart2, Trophy, Repeat, DollarSign, PiggyBank, LineChart, BookOpen, Cake, PartyPopper, Gift } from 'lucide-react';
 
 interface HeaderProps {
   className?: string;
@@ -43,7 +43,7 @@ export function Header({
   const [activeNavItem, setActiveNavItem] = useState('home');
   const [currentTime, setCurrentTime] = useState('');
   const [moreDropdownOpen, setMoreDropdownOpen] = useState(false);
-  const [weatherData, setWeatherData] = useState({
+  const [weatherData] = useState({
     temp: 72,
     condition: 'Sunny',
     icon: <CloudSun className="h-5 w-5" />,
