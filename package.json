@@ -11,7 +11,7 @@
     "prebuild": "node scripts/security/check-node-runtime.cjs"
   },
   "dependencies": {
-    "@hookform/resolvers": "^5.9.2",
+    "@hookform/resolvers": "^6.0.0",
     "@radix-ui/react-accordion": "^1.2.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
     "@radix-ui/react-aspect-ratio": "^1.1.0",
