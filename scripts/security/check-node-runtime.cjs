@@ -6,7 +6,11 @@ function parts(v) { if(!/^v?\d+\.\d+\.\d+$/.test(v)) throw Error('Use an exact N
 function compare(a,b) { for(let i=0;i<3;i++) { if(a[i]!==b[i]) return a[i]-b[i]; } return 0; }
 const ends = {22:'2027-04-30',24:'2028-04-30'};
 function safe(v, now=Date.now()) { const p=parts(v); return !!floors[p[0]] && compare(p,floors[p[0]])>=0 && now < Date.parse(ends[p[0]]+'T00:00:00Z'); }
-module.exports={safe,parts,compare};
+function latestLts(releases, major) {
+ return releases.filter(r=>r && r.lts && typeof r.version==='string' && /^v?\d+\.\d+\.\d+$/.test(r.version) && parts(r.version)[0]===major)
+  .sort((a,b)=>compare(parts(b.version),parts(a.version)))[0];
+}
+module.exports={safe,parts,compare,latestLts};
 if(require.main===module) {
  const pinned=fs.readFileSync(require('node:path').resolve(__dirname,'../../.nvmrc'),'utf8').trim();
  if(!safe(process.version)||!safe(pinned)) throw Error('Unsupported or vulnerable Node runtime/pin');
@@ -14,7 +18,7 @@ if(require.main===module) {
   if(res.statusCode!==200) {res.resume(); throw Error('Official Node release lookup failed');}
   let text=''; res.on('data',b=>{text+=b;if(text.length>2_000_000) req.destroy(Error('Release response too large'));});
   res.on('end',()=>{const releases=JSON.parse(text);for(const v of [process.version,pinned]) {
-   const current=parts(v);const latest=releases.filter(r=>parts(r.version)[0]===current[0]&&r.lts).sort((a,b)=>compare(parts(b.version),parts(a.version)))[0];
+   const current=parts(v);const latest=latestLts(releases,current[0]);
    if(!latest) throw Error('No supported LTS release found');
    if(compare(current,parts(latest.version))<0) throw Error(`Node ${v} is behind official LTS patch ${latest.version}; update and test`);
   } console.log(`Node runtime ${process.version} and repository pin ${pinned} match current LTS security patches`);});
